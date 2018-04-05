@@ -18,7 +18,8 @@ Create a new story. \
 In the launch passage add the fellowing between tag for js : <% and %>\
 ```javascript
 class Quest{
-	constructor(target,condition){
+	constructor(id,target,condition){
+		this.id=id
 		this.target = target;
 		this.condition=condition;
 	}
@@ -51,10 +52,26 @@ It will initialize the list of quest you will find for this permanent passage.
 
 #### Create a quest
 ```javascript
-s.quest['XXXX'].push(new Quest("ZZZZ", function(){return true;}));
+s.quest['XXXX'].push(new Quest("someIdUnique","ZZZZ", function(){return true;}));
 ```
 Change XXXX by the referential of your permanent passage, and ZZZZ by a link to the passage that begins the new quest. Note that Twine will link the quest from where this is added. \
 If you add this line from your init, it will be separated from your permanent passage.
+
+#### Delete a quest
+```javascript
+s.quest['permPlace1'] = _.reject(s.quest['permPlace1'],function(quest){
+return quest.id=="newQuest";});
+```
+Replace permPlace1 by the referency of your permanent place, and the "newQuest" by the id of the quest you want to remove.
+
+#### Conditionnaly display a quest
+In the creation of the quest, you have a place in the "condition" parameter where you can specify a condition. 
+For exemple :
+```javascript
+function(){return s.quest['permPlace1'].length<3;}
+```
+will display the quest only if the number of quest on permPlace1 is less than 3 (counting non-displaying quest)
+
 ## Features
 At length, this project might be a new format for Twine. 
 
@@ -62,10 +79,9 @@ At length, this project might be a new format for Twine.
 - [x] Quest system 
 - [ ] Inventory system 
 - [ ] Reputation system 
-- [ ] Example in english  
-- [ ] Overlay of Twine to see all storyline for quests, and all storyline for permanent passages 
+- [x] Example in english  
 
 ### Secondary Features
-- [ ] 
+- [ ] Overlay of Twine to see all storyline for quests, and all storyline for permanent passages 
 
  
