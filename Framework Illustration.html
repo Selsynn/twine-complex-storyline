@@ -1,0 +1,54 @@
+<tw-storydata name="Framework Illustration" startnode="1" creator="Twine" creator-version="2.2.1" ifid="F03CC758-C8F0-41AA-B720-DD025D5B3215" zoom="1" format="Snowman" format-version="1.3.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Intro" tags="" position="430,297.5" size="100,100">&lt;p&gt;Hello, this is NOT a translation of the french one, but an illustration of the framework.&lt;/p&gt;
+
+&lt;p&gt;[[A permanent place-&gt;PermanentPlace1]]&lt;/p&gt;
+
+
+&lt;%
+class Quest{
+	constructor(id,target,condition){
+		this.id = id;
+		this.target = target;
+		this.condition = condition;
+	}
+}
+
+s.quest = [];
+s.quest[&#39;permPlace1&#39;]=[];
+
+s.quest[&#39;permPlace1&#39;].push(new Quest(&quot;newQuest&quot;,&quot;[[Go on this fabulous new quest-&gt;ANewQuest]]&quot;, function(){return true;}));
+
+s.quest[&#39;permPlace1&#39;].push(new Quest(&quot;anotherQuest&quot;,&quot;[[This is another quest-&gt;AnotherQuest]]&quot;, function(){return true;}));
+
+s.quest[&#39;permPlace1&#39;].push(new Quest(&quot;secretQuest&quot;,&quot;[[This is a secret quest !-&gt;SecretQuest]]&quot;, function(){return s.quest[&#39;permPlace1&#39;].length&lt;3;}));
+%&gt;</tw-passagedata><tw-passagedata pid="2" name="PermanentPlace1" tags="" position="419,510.5" size="100,100">&lt;h1&gt;Permanent Place 1&lt;/h1&gt;
+
+&lt;p&gt;Some permanent explanation&lt;/p&gt;
+
+&lt;%
+_.each(s.quest[&#39;permPlace1&#39;],function(quest){
+	if(quest.condition()){
+		%&gt;&lt;p&gt;&lt;%=quest.target%&gt;&lt;/p&gt;&lt;%
+	}
+});
+
+s.back=&quot;[[Return to Permanent Place 1-&gt;PermanentPlace1]]&quot;;
+%&gt;</tw-passagedata><tw-passagedata pid="3" name="ANewQuest" tags="" position="730,204.5" size="100,100">&lt;h1&gt;A new quest&lt;/h1&gt;
+
+&lt;p&gt;You can manage this quest from here. This is where your reader will come when he click on the quest (that will be displayed in the permanent place you choose.)&lt;/p&gt;
+
+&lt;p&gt;You can add other quest to be displayed for some permanent place, like when you create this quest.&lt;/p&gt;
+&lt;p&gt;You even can remove this quest by deleting here the link to the permanent place.&lt;/p&gt;
+
+&lt;p&gt;[[Go here to remove the link-&gt;QuestRemove]]&lt;/p&gt;
+&lt;p&gt;[[Go here to see that links works-&gt;BetaQuest]]&lt;/p&gt;
+
+
+&lt;%=s.back%&gt;</tw-passagedata><tw-passagedata pid="4" name="QuestRemove" tags="" position="605,416.5" size="100,100">&lt;%
+s.quest[&#39;permPlace1&#39;] = _.reject(s.quest[&#39;permPlace1&#39;],function(quest){
+return quest.id==&quot;newQuest&quot;;});
+%&gt;
+&lt;%=s.back%&gt;</tw-passagedata><tw-passagedata pid="5" name="BetaQuest" tags="" position="757,417.5" size="100,100">&lt;%=s.back%&gt;</tw-passagedata><tw-passagedata pid="6" name="AnotherQuest" tags="" position="434,79" size="100,100">&lt;p&gt;Blabla blac bla Another quest...&lt;/p&gt;
+&lt;%=s.back%&gt;</tw-passagedata><tw-passagedata pid="7" name="SecretQuest" tags="" position="69,239.5" size="100,100">&lt;h1&gt;Secret Quest !&lt;/h1&gt;
+&lt;p&gt;This is a secret quest ! To see it, you must have deleted a quest.&lt;/p&gt;
+
+&lt;%=s.back%&gt;</tw-passagedata></tw-storydata>

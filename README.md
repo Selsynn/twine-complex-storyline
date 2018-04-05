@@ -54,7 +54,7 @@ It will initialize the list of quest you will find for this permanent passage.
 s.quest['XXXX'].push(new Quest("ZZZZ", function(){return true;}));
 ```
 Change XXXX by the referential of your permanent passage, and ZZZZ by a link to the passage that begins the new quest. Note that Twine will link the quest from where this is added. \
-If you add this line from your init, it will be separated from your permanent passage. \
+If you add this line from your init, it will be separated from your permanent passage.
 ## Features
 At length, this project might be a new format for Twine. 
 
