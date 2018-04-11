@@ -12,7 +12,7 @@
 
 
 
-</script><tw-passagedata pid="1" name="Intro" tags="" position="520,245" size="100,100">&lt;h1&gt;Introduction&lt;/h1&gt;
+</script><tw-passagedata pid="1" name="Intro" tags="" position="520,243" size="100,100">&lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;Bonjour à tous, voici un framework pour avoir des histoires complexes et non linéaires sans se prendre la tête.&lt;/p&gt;
 &lt;p&gt;Pour la présentation, je vous invite à Sarreson, dans la peau d&#39;Ayleen Gafalmo.&lt;/p&gt;
 
@@ -220,7 +220,21 @@ _.each(s.quest[&#39;citadelle&#39;],function(quest){
 });
 
 s.back=&quot;[[Retour à la Citadelle-&gt;Citadelle]] &quot;;
-%&gt;</tw-passagedata><tw-passagedata pid="11" name="MySchool" tags="" position="1027,831" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="12" name="University" tags="" position="1186,844" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="13" name="MySalon" tags="" position="0,688" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="14" name="MyKitchen" tags="" position="102,852" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="15" name="MyGarage" tags="" position="72,527" size="100,100">&lt;h1&gt;Le Garage&lt;/h1&gt;
+%&gt;</tw-passagedata><tw-passagedata pid="11" name="MySchool" tags="" position="1027,831" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="12" name="University" tags="" position="1186,844" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="13" name="MySalon" tags="" position="10,682" size="100,100">&lt;h1&gt;Le Salon&lt;/h1&gt;
+&lt;p&gt;Il est ouvert sur le vestibule qui le sépare de la porte d&#39;entrée et des escaliers vers l&#39;étage du haut (et le reste de la [[maison-&gt;MyHome]] et le [[garage-&gt;MyGarage]]. En face, se trouve la [[cuisine-&gt;MyKitchen]].&lt;/p&gt;
+&lt;p&gt;Mais ce que j&#39;adore sur le salon, c&#39;est le module de la chaine hi-fi, qui me permet d&#39;écouter ce que je veux, voir même de répéter des mouvements de danse, quand je n&#39;ai pas pu passer au [[studio-&gt;StudioDanse]] par exemple.&lt;/p&gt;
+&lt;p&gt;[[Régler la musique-&gt;SalonModuleHifi]]&lt;/p&gt;
+
+
+&lt;%
+_.each(s.quest[&#39;salon&#39;],function(quest){
+	if(quest.condition()){
+		%&gt;&lt;p&gt;&lt;%=quest.target%&gt;&lt;/p&gt;&lt;%
+	}
+});
+
+s.back=&quot;[[Retour au salon-&gt;MySalon]] &quot;;
+%&gt;</tw-passagedata><tw-passagedata pid="14" name="MyKitchen" tags="" position="102,852" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="15" name="MyGarage" tags="" position="72,527" size="100,100">&lt;h1&gt;Le Garage&lt;/h1&gt;
 &lt;p&gt;Il y a des montagnes de choses dans le souterrain sous la maison, et je n&#39;ai jamais vraiment pris la peine de m&#39;y intéressé. Je me suis principalement toujours préoccupé surtout de [[Naiade]] ou de pouvoir fuir le stockage des machines folles de mon père, pour retrouver le soleil.&lt;/p&gt;
 
 &lt;p&gt;Remonter à l&#39;étage et au reste de la [[maison-&gt;MyHome]] &lt;/p&gt;
@@ -285,4 +299,4 @@ s.stats[&#39;cleaning&#39;]++;
 s.back=&quot;[[Retour-&gt;SarresonHotspots]] &quot;;
 %&gt;</tw-passagedata><tw-passagedata pid="22" name="VisitingHomeRoom" tags="" position="616,0" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="23" name="VisitingHomeGarage" tags="" position="811,0" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="24" name="VisitingHomeNothing" tags="" position="1076,21" size="100,100">&lt;h1&gt;Rien d&#39;intéressant en vue&lt;/h1&gt;
 &lt;p&gt;Rien par ici, ou alors je ne le vois pas&lt;/p&gt;
-&lt;p&gt;&lt;%=s.back%&gt;&lt;/p&gt;</tw-passagedata><tw-passagedata pid="25" name="VisitingHomeNaiade" tags="" position="955,317" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="26" name="VisitingHomeParents" tags="" position="1085,317" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="27" name="VisitingHomeFatherRoom" tags="" position="1215,317" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata></tw-storydata>
+&lt;p&gt;&lt;%=s.back%&gt;&lt;/p&gt;</tw-passagedata><tw-passagedata pid="25" name="VisitingHomeNaiade" tags="" position="955,317" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="26" name="VisitingHomeParents" tags="" position="1085,317" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="27" name="VisitingHomeFatherRoom" tags="" position="1215,317" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="28" name="SalonModuleHifi" tags="" position="0,838" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata></tw-storydata>
