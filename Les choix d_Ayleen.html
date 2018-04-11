@@ -2,6 +2,7 @@
 
 
 
+
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">class Quest{
 	constructor(target,condition){
 		this.target = target;
@@ -10,7 +11,8 @@
 }
 
 
-</script><tw-passagedata pid="1" name="Intro" tags="" position="518,248" size="100,100">&lt;h1&gt;Introduction&lt;/h1&gt;
+
+</script><tw-passagedata pid="1" name="Intro" tags="" position="520,245" size="100,100">&lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;Bonjour à tous, voici un framework pour avoir des histoires complexes et non linéaires sans se prendre la tête.&lt;/p&gt;
 &lt;p&gt;Pour la présentation, je vous invite à Sarreson, dans la peau d&#39;Ayleen Gafalmo.&lt;/p&gt;
 
@@ -111,7 +113,7 @@ s.quest[&#39;fatherWorkRoomHome&#39;].push(new Quest(&quot;[[Fouiller le bureau-
 s.quest[&#39;fatherWorkRoomHome&#39;].push(new Quest(&quot;[[Fouiller le bureau-&gt;VisitingHomeNothing]]&quot;, function(){return perception&lt;10;}));
 s.quest[&#39;motherWorkRoomHome&#39;].push(new Quest(&quot;[[Fouiller le bureau-&gt;VisitingHomeNothing]]&quot;, function(){return true;}));
 
-%&gt;</tw-passagedata><tw-passagedata pid="6" name="MyHome" tags="" position="41,367" size="100,100">&lt;h1&gt;Ma maison&lt;/h1&gt;
+%&gt;</tw-passagedata><tw-passagedata pid="6" name="MyHome" tags="" position="509,539" size="100,100">&lt;h1&gt;Ma maison&lt;/h1&gt;
 
 &lt;p&gt;Dès que je passe le portail et entre dans notre propriété, malgré tout ce que je peux éprouver pour mes parents, toutes les contrariétés de ma courte vie, je ne peux m&#39;empecher d&#39;être profondément touchée par ce que je vois devant moi. La maison ne parait pas si impressionnante, surtout quand on sait que c&#39;est celle du Grand Thomas Gafalmo, mais c&#39;est certainement pour cela qu&#39;il n&#39;y passe pas tant de temps que ça.&lt;/p&gt; 
 &lt;p&gt;
@@ -145,13 +147,13 @@ A l&#39;étage, on débarque sur un couloir, qui donne tout d&#39;abord sur la [
 &lt;%
 _.each(s.quest[&#39;home&#39;],function(quest){
 	if(quest.condition()){
-		%&gt;&lt;%=quest.target%&gt;&lt;%
+		%&gt;&lt;p&gt;&lt;%=quest.target%&gt;&lt;/p&gt;&lt;%
 	}
 });
 
 s.back=&quot;[[Retour à la maison-&gt;MyHome]]&quot;;
 %&gt;
-</tw-passagedata><tw-passagedata pid="7" name="MyRoom" tags="" position="165,533" size="100,100">&lt;h1&gt;Ma chambre&lt;/h1&gt;
+</tw-passagedata><tw-passagedata pid="7" name="MyRoom" tags="" position="281,541" size="100,100">&lt;h1&gt;Ma chambre&lt;/h1&gt;
 &lt;%if(s.stats[&#39;cleaning&#39;]&lt;10){%&gt;
 &lt;p&gt;Comment présenter facilement ma chambre ? C&#39;est certainement la seule pièce de la maison qui est à mon image, et elle est d&#39;ailleurs dans un tel état de foutoir qu&#39;elle reflète parfaitement bien l&#39;état de mon esprit.&lt;/p&gt;
 &lt;p&gt;Je peux passer un moment à la ranger. [[Ranger la chambre.-&gt;CleanRoom]]&lt;/p&gt;
@@ -167,12 +169,30 @@ s.back=&quot;[[Retour à la maison-&gt;MyHome]]&quot;;
 &lt;%
 _.each(s.quest[&#39;room&#39;],function(quest){
 	if(quest.condition()){
-		%&gt;&lt;%=quest.target%&gt;&lt;%
+		%&gt;&lt;p&gt;&lt;%=quest.target%&gt;&lt;/p&gt;&lt;%
 	}
 });
 
 s.back=&quot;[[Retour à ma chambre-&gt;MyRoom]] &quot;;
-%&gt;</tw-passagedata><tw-passagedata pid="8" name="MyGarden" tags="" position="388,542" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="9" name="StudioDanse" tags="" position="526,559" size="100,100">&lt;h1&gt;Le studio de danse&lt;/h1&gt;
+%&gt;</tw-passagedata><tw-passagedata pid="8" name="MyGarden" tags="" position="625,711" size="100,100">&lt;h1&gt;Le Jardin&lt;/h1&gt;
+
+&lt;p&gt;C&#39;est un jardin très bien entretenu, qui se divise en deux. D&#39;un côté un parc, et de l&#39;autre un potager, dans lequel je peux trouver beaucoup de choses intéressantes, y compris des serres et les robots pour s&#39;en occuper.&lt;/p&gt;
+
+&lt;p&gt;En me promenant du côté du parc, je peux me décontracter ou simplement profiter de la journée, s&#39;il fait beau.&lt;/p&gt;
+
+&lt;p&gt;Je peux rentrer dans la maison par la porte d&#39;entrer, ou m&#39;éloigner vers le centre ville de Sarreson.&lt;/p&gt;
+&lt;p&gt;[[Se diriger vers la porte d&#39;entrée-&gt;MyHome]] &lt;/p&gt;
+&lt;p&gt;[[S&#39;éloigner de la maison-&gt;SarresonHotspots]] &lt;/p&gt;
+
+&lt;%
+_.each(s.quest[&#39;garden&#39;],function(quest){
+	if(quest.condition()){
+		%&gt;&lt;p&gt;&lt;%=quest.target%&gt;&lt;/p&gt;&lt;%
+	}
+});
+
+s.back=&quot;[[Retour au jardin-&gt;MyGarden]] &quot;;
+%&gt;</tw-passagedata><tw-passagedata pid="9" name="StudioDanse" tags="" position="760,846" size="100,100">&lt;h1&gt;Le studio de danse&lt;/h1&gt;
 &lt;p&gt;Il s&#39;agit certainement du lieu où j&#39;ai passé la plus grande partie de ma vie, qui ne soit pas [[ma maison-&gt;MyHome]].&lt;/p&gt;
 &lt;p&gt;Le studio est dans l&#39;un des plus grand batiments à la sortie de Sarreson, à un quart d&#39;heure à pieds de la maison. Il est situé au deuxième étage, ce que j&#39;ai toujours trouvé très étrange.Pourquoi ne pas l&#39;avoir mis au rez-de-chaussez où nous embeterions moins les voisins avec la musique et le bruit de nos pas ? Enfin, quoi qu&#39;il en soit, la cage d&#39;escalier n&#39;est vraiment pas un endroit que j&#39;aime, très fraiche et sombre, et j&#39;ai souvent eu peur de m&#39;y faire attaquer par un quelconque étranger, et j&#39;ai souvent entrainé Rafaelo à m&#39;accompagner jusqu&#39;à la porte de l&#39;immeuble.&lt;/p&gt;
 &lt;p&gt;En lui-même le studio n&#39;est pas si grand. Deux grandes pièces et deux petites qui nous servent de vestiaires. La plus grande est la seule où je me souvienne d&#39;avoir danser à proprement parler, mais l&#39;autre est une pièce à vivre qui permet de faire le lien entre les vestiaires et la &quot;vraie&quot; salle de danse. Cette pièce à vivre a notamment des appareils de cuisines qui permettent de se faire une pause dans l&#39;entrainement lors des journées thématique à la danse.&lt;/p&gt;
@@ -183,28 +203,81 @@ s.back=&quot;[[Retour à ma chambre-&gt;MyRoom]] &quot;;
 &lt;%
 _.each(s.quest[&#39;danse&#39;],function(quest){
 	if(quest.condition()){
-		%&gt;&lt;%=quest.target%&gt;&lt;%
+		%&gt;&lt;p&gt;&lt;%=quest.target%&gt;&lt;/p&gt;&lt;%
 	}
 });
 s.back=&quot;[[Retour au studio-&gt;StudioDanse]] &quot;;
-%&gt;</tw-passagedata><tw-passagedata pid="10" name="Citadelle" tags="" position="688,542" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="11" name="MySchool" tags="" position="838,542" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="12" name="University" tags="" position="988,542" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="13" name="MySalon" tags="" position="0,688" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="14" name="MyKitchen" tags="" position="701,700" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="15" name="MyGarage" tags="" position="0,557" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="16" name="Naiade" tags="" position="130,688" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="17" name="MyParentsRoom" tags="" position="300,690" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="18" name="MyFatherHomeWorkRoom" tags="" position="460,704" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="19" name="MyMotherHomeWorkRoom" tags="" position="590,704" size="100,100">&lt;h1&gt;Le bureau de ma mère&lt;/h1&gt;
+%&gt;</tw-passagedata><tw-passagedata pid="10" name="Citadelle" tags="" position="914,830" size="100,100">&lt;h1&gt;La Citadelle&lt;/h1&gt;
+&lt;p&gt;Un monstre de métal et de béton se dresse devant moi. Dans mes plus anciens souvenirs, c&#39;est toujours un monstre qui est là pour le malheur de l&#39;humanité. Enfin, c&#39;est là que mon père travaille, et donc c&#39;est le meilleur moyen pour le trouver. Et je suis tellement certaine qu&#39;il doit y avoir des millions de cadavres dans les greniers de cette création immonde qu&#39;est la Citadelle.&lt;/p&gt;
+&lt;p&gt;Et ils appellent ça un centre de recherche ? C&#39;est un centre militaire qui crée des armes pour assujetir tous ceux qui s&#39;opposeront aux décisions du Capitole plutôt !&lt;/p&gt;
+
+&lt;p&gt;[[Retour aux points d&#39;intérêt de Sarreson-&gt;SarresonHotspots]] &lt;/p&gt;
+&lt;%
+_.each(s.quest[&#39;citadelle&#39;],function(quest){
+	if(quest.condition()){
+		%&gt;&lt;p&gt;&lt;%=quest.target%&gt;&lt;/p&gt;&lt;%
+	}
+});
+
+s.back=&quot;[[Retour à la Citadelle-&gt;Citadelle]] &quot;;
+%&gt;</tw-passagedata><tw-passagedata pid="11" name="MySchool" tags="" position="1027,831" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="12" name="University" tags="" position="1186,844" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="13" name="MySalon" tags="" position="0,688" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="14" name="MyKitchen" tags="" position="102,852" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="15" name="MyGarage" tags="" position="72,527" size="100,100">&lt;h1&gt;Le Garage&lt;/h1&gt;
+&lt;p&gt;Il y a des montagnes de choses dans le souterrain sous la maison, et je n&#39;ai jamais vraiment pris la peine de m&#39;y intéressé. Je me suis principalement toujours préoccupé surtout de [[Naiade]] ou de pouvoir fuir le stockage des machines folles de mon père, pour retrouver le soleil.&lt;/p&gt;
+
+&lt;p&gt;Remonter à l&#39;étage et au reste de la [[maison-&gt;MyHome]] &lt;/p&gt;
+
+&lt;%
+_.each(s.quest[&#39;garage&#39;],function(quest){
+	if(quest.condition()){
+		%&gt;&lt;p&gt;&lt;%=quest.target%&gt;&lt;/p&gt;&lt;%
+	}
+});
+
+s.back=&quot;[[Retour au garage-&gt;MyGarage]] &quot;;
+%&gt;</tw-passagedata><tw-passagedata pid="16" name="Naiade" tags="" position="130,688" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="17" name="MyParentsRoom" tags="" position="382,717" size="100,100">&lt;h1&gt;La chambre de mes parents&lt;/h1&gt;
+&lt;p&gt;Je n&#39;ai pas souvent le droit d&#39;y entrer, mais à chaque fois que j&#39;y vais, je suis surprise par l&#39;austérité qui se dégage de l&#39;endroit. J&#39;ai toujours du mal à croire que ce soit le même endroit que le reste de la maison. &lt;/p&gt;
+&lt;p&gt;Pourquoi suis-je venu ici ?&lt;/p&gt;
+&lt;p&gt;Si je sors, j&#39;ai les bureaux en face([[celui de maman-&gt;MyMotherHomeWorkRoom]] et [[celui de papa-&gt;MyFatherHomeWorkRoom]] ), la salle de bain sur le coté, et [[ma chambre-&gt;MyRoom]] en diagonale.&lt;/p&gt;
+&lt;p&gt;Avec l&#39;escalier qui descend, on peut attendre le reste de la [[maison-&gt;MyHome]] &lt;/p&gt;
+&lt;%
+_.each(s.quest[&#39;parentsRoom&#39;],function(quest){
+	if(quest.condition()){
+		%&gt;&lt;p&gt;&lt;%=quest.target%&gt;&lt;/p&gt;&lt;%
+	}
+});
+
+s.back=&quot;[[Retour à la chambre de mes parents-&gt;MyParentsRoom]] &quot;;
+%&gt;
+</tw-passagedata><tw-passagedata pid="18" name="MyFatherHomeWorkRoom" tags="" position="370,988" size="100,100">&lt;h1&gt;Le bureau de mon père&lt;/h1&gt;
+&lt;p&gt;Verrouillé la plupart du temps quand il est au travail, j&#39;ai remarqué depuis quelques semaines que mon père semble avoir changé ses habitudes, et qu&#39;un rai de lumière sort souvent de la pièce, confirmant qu&#39;elle s&#39;ouvrira d&#39;une simple poussée. Mais ai-je pour autant envie de me retrouver dans cette pièce ? Pourquoi voudrais-je y aller ?&lt;/p&gt;
+&lt;p&gt;Quand je pousse la porte alors que mon père est je ne sais où, il fait sombre, le volet est fermé, et l&#39;ambiance est oppressante. Je n&#39;ai pas envie de rester très longtemps dans la pièce, juste le temps qu&#39;il me faut pour la raison pour laquelle je suis venue là, et hop, je m&#39;enfuie.&lt;/p&gt;
+&lt;p&gt;Au même étage, on trouve : [[le bureau de Maman-&gt;MyMotherHomeWorkRoom]] , [[leur chambre-&gt;MyParentsRoom]] , [[ma chambre-&gt;MyRoom]]. Ou on peut acceder au [[reste de la maison-&gt;MyHome]] &lt;/p&gt;
+
+&lt;%
+_.each(s.quest[&#39;fatherWorkRoomHome&#39;],function(quest){
+	if(quest.condition()){
+		%&gt;&lt;p&gt;&lt;%=quest.target%&gt;&lt;/p&gt;&lt;%
+	}
+});
+
+s.back=&quot;[[Retour au bureau de mon père-&gt;MyFatherHomeWorkRoom]] &quot;;
+%&gt;</tw-passagedata><tw-passagedata pid="19" name="MyMotherHomeWorkRoom" tags="" position="548,866" size="100,100">&lt;h1&gt;Le bureau de ma mère&lt;/h1&gt;
 &lt;p&gt;Je ne compte plus le nombre d&#39;heures on j&#39;ai vu ma mère travailler sur ses articles alors que je m&#39;ennuyais. Elle me proposait alors de venir sur ses genoux, et tant que je la laissais tranquille, j&#39;avais le droit de regarder ce qu&#39;elle faisait. J&#39;aimais beaucoup quand elle travaillait sur des tracts, mais j&#39;ai appris plus tard que c&#39;était les moments où elle était le moins à l&#39;aise de m&#39;avoir sur les genoux. Et si je racontais à quelqu&#39;un ce qu&#39;elle écrivait le soir ?&lt;/p&gt;
 &lt;p&gt;Cette pièce est vide quand Maman n&#39;y est pas.&lt;/p&gt;
 &lt;p&gt;[[Retour à la maison-&gt;MyHome]] &lt;/p&gt;
 &lt;%
 _.each(s.quest[&#39;motherWorkRoomHome&#39;],function(quest){
 	if(quest.condition()){
-		%&gt;&lt;%=quest.target%&gt;&lt;%
+		%&gt;&lt;p&gt;&lt;%=quest.target%&gt;&lt;/p&gt;&lt;%
 	}
 });
 
 s.back=&quot;[[Retour au bureau de ma mère-&gt;MyMotherHomeWorkRoom]] &quot;;
-%&gt;</tw-passagedata><tw-passagedata pid="20" name="CleanRoom" tags="" position="228,810" size="100,100">&lt;h1&gt;Nettoyer et ranger la chambre&lt;/h1&gt;
+%&gt;</tw-passagedata><tw-passagedata pid="20" name="CleanRoom" tags="" position="227,375" size="100,100">&lt;h1&gt;Nettoyer et ranger la chambre&lt;/h1&gt;
 &lt;%
 s.stats[&#39;cleaning&#39;]++;
 %&gt;
 &lt;p&gt;Après une heure de tri et de nettoyage, je suis contente des progrès faits, même si je suis sûre que personne ne s&#39;en apercevra. &lt;/p&gt;
-&lt;p&gt;[[Retour à la chambre-&gt;MyRoom]]&lt;/p&gt;</tw-passagedata><tw-passagedata pid="21" name="SarresonHotspots" tags="" position="778,413" size="100,100">&lt;h1&gt;Les points d&#39;intérêts de Sarreson&lt;/h1&gt;
+&lt;p&gt;[[Retour à la chambre-&gt;MyRoom]]&lt;/p&gt;</tw-passagedata><tw-passagedata pid="21" name="SarresonHotspots" tags="" position="877,568" size="100,100">&lt;h1&gt;Les points d&#39;intérêts de Sarreson&lt;/h1&gt;
 &lt;p&gt;Aller au [[studio de danse-&gt;StudioDanse]], à la [[Citadelle]], dans mon ancienne [[école-&gt;MySchool]], à l&#39;[[université-&gt;University]]&lt;/p&gt;
 &lt;p&gt;Sinon, je peux aussi aller à la [[maison-&gt;MyHome]].&lt;/p&gt;
 
