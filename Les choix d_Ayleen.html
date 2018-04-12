@@ -3,16 +3,42 @@
 
 
 
-</style><script role="script" id="twine-user-script" type="text/twine-javascript">class Quest{
-	constructor(target,condition){
-		this.target = target;
-		this.condition=condition;
+
+</style><script role="script" id="twine-user-script" type="text/twine-javascript">window.GE = window.GE || {};
+
+GE.Quest = class {
+    constructor(id,target,condition){
+				this.id = id;
+        this.target = target;
+        this.condition = condition;
+    }
+};
+
+GE.Relationship = class{
+	constructor(xp,firstParam,secondParam){
+		this.xp=xp;
+		this.level=this.level();
+		this.firstParam=firstParam;
+		this.secondParam=secondParam;
 	}
-}
+	level(){
+		if(this.xp<=1)return 0;
+		if(this.xp<=2)return 1;
+		if(this.xp<=4)return 2;
+		if(this.xp<=8)return 3;
+		if(this.xp<=16)return 4;
+		if(this.xp<=32)return 5;
+		if(this.xp<=64)return 6;
+		if(this.xp<=128)return 7;
+		if(this.xp<=256)return 8;
+		if(this.xp<=512)return 9;
+		return 10;
+	}
+};
 
 
 
-</script><tw-passagedata pid="1" name="Intro" tags="" position="519,243" size="100,100">&lt;h1&gt;Introduction&lt;/h1&gt;
+</script><tw-passagedata pid="1" name="Intro" tags="" position="514,241" size="100,100">&lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;Bonjour à tous, voici un framework pour avoir des histoires complexes et non linéaires sans se prendre la tête.&lt;/p&gt;
 &lt;p&gt;Pour la présentation, je vous invite à Sarreson, dans la peau d&#39;Ayleen Gafalmo.&lt;/p&gt;
 
@@ -32,10 +58,10 @@ class Quest{
 s.quest = [];
 s.quest[&#39;menu&#39;]=[];
 s.quest[&#39;danse&#39;]=[];
-s.quest[&#39;danse&#39;].push(new Quest(&quot;chimere1&quot;,&quot;[[Maitriser la Chimère-&gt;ChimereMastering1]]&quot;,
+s.quest[&#39;danse&#39;].push(new GE.Quest(&quot;chimere1&quot;,&quot;[[Maitriser la Chimère-&gt;ChimereMastering1]]&quot;,
 function(){return true;}));
 s.quest[&#39;home&#39;]=[];
-s.quest[&#39;home&#39;].push(new Quest(&quot;fouille1&quot;,&quot;[[Dans chaque maison, il y a des secrets. Il faut toujours commencer par visiter très précisement des lieux que nous croyons connaitre-&gt;VisitingHome1]]&quot;, function(){return true;}));
+s.quest[&#39;home&#39;].push(new GE.Quest(&quot;fouille1&quot;,&quot;[[Dans chaque maison, il y a des secrets. Il faut toujours commencer par visiter très précisement des lieux que nous croyons connaitre-&gt;VisitingHome1]]&quot;, function(){return true;}));
 s.quest[&#39;room&#39;]=[];
 s.quest[&#39;garage&#39;]=[];
 s.quest[&#39;kitchen&#39;]=[];
@@ -48,6 +74,11 @@ s.quest[&#39;salon&#39;]=[];
 
 s.varQuest=[];
 
+s.relationship=[];
+s.relationship[&#39;Rafaelo&#39;]=new GE.Relationship(1,&quot;[[Rafaelo]]&quot;,&quot;danse&quot;,&quot;charisma&quot;);
+s.relationship[&#39;Sebastien&#39;]=new GE.Relationship(0,&quot;[[Sebastien]]&quot;, undefined, undefined);
+s.relationship[&#39;Vanoslias&#39;]=new GE.Relationship(undefined,&quot;[[Lias-&gt;Vanoslias]]&quot;, &quot;charisma&quot;, &quot;perception&quot;);
+s.relationship[&#39;Matthieu&#39;]=new GE.Relationship(-10, &quot;[[Papa-&gt;Matthieu]]&quot;,&quot;perception&quot;, &quot;magic&quot;);
 
 
 s.stats = [];
@@ -55,6 +86,8 @@ s.stats[&#39;xp&#39;]=0;
 s.stats[&#39;danse&#39;]=10;
 s.stats[&#39;cleaning&#39;]=-10;
 s.stats[&#39;perception&#39;]=0;
+s.stats[&#39;charisma&#39;]=5;
+s.stats[&#39;magic&#39;]=0;
 
 
 %&gt;
@@ -88,39 +121,28 @@ _.each(s.quest[&#39;menu&#39;],function(quest){
 
 Une gestion de la réputation sera bientot présente
 
-[[Menu]] </tw-passagedata><tw-passagedata pid="4" name="ChimereMastering1" tags="" position="161,233" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="5" name="VisitingHome1" tags="" position="799,165" size="100,100">&lt;h1&gt;Le début du mystère&lt;/h1&gt;
+[[Menu]] </tw-passagedata><tw-passagedata pid="4" name="ChimereMastering1" tags="" position="161,233" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="5" name="VisitingHome1" tags="" position="798,166" size="100,100">&lt;h1&gt;Le début du mystère&lt;/h1&gt;
 &lt;p&gt;Un mystère commence souvent par ce que l&#39;on connait. Je connais la maison qui se dresse devant moi depuis des années. Plus de seize ans. Quoiqu&#39;il faudrait surement réfléchir à partir de quel âge on prend réellement conscience du monde qui nous entoure.&lt;/p&gt;
 &lt;p&gt;Ce n&#39;est pas le sujet. Il faut que je prenne le temps de fouiller chacune des pieces pour être sure que je sache tout ce qui s&#39;y passe.&lt;/p&gt;
 &lt;p&gt;&lt;%=s.back%&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;Je devrais ensuite revenir à la maison quand j&#39;aurais assemblé tous les éléments pour avancer dans mes recherches&lt;/em&gt;&lt;/p&gt;
 &lt;%
-
-class Quest{
-	constructor(id,target,condition){
-		this.id = id;
-		this.target = target;
-		this.condition=condition;
-	}
-}
-
-
-s.quest[&#39;room&#39;].push(new Quest(&quot;visiting1Room&quot;,&quot;[[Fouiller la chambre-&gt;VisitingHomeRoom]]&quot;, function(){return true;}));
-s.quest[&#39;garage&#39;].push(new Quest(&quot;visiting1garage&quot;,&quot;[[Fouiller le garage-&gt;VisitingHomeGarage]]&quot;, function(){return true;}));
-s.quest[&#39;kitchen&#39;].push(new Quest(&quot;visiting1kitchen&quot;,&quot;[[Fouiller la cuisine-&gt;VisitingHomeNothing]]&quot;, function(){return true;}));
-s.quest[&#39;Naiade&#39;].push(new Quest(&quot;visiting1Naiade&quot;,&quot;[[Fouiller la salle de simu&#39;-&gt;VisitingHomeNaiade]]&quot;, function(){return true;}));
-s.quest[&#39;salon&#39;].push(new Quest(visiting1salon&quot;,&quot;[[Fouiller le salon-&gt;VisitingHomeNothing]]&quot;, function(){return true;}));
-s.quest[&#39;parentsRoom&#39;].push(new Quest(&quot;visiting1parentsRoom&quot;,&quot;[[Fouiller la chambre des parents-&gt;VisitingHomeParents]]&quot;, function(){return perception&gt;5;}));
-s.quest[&#39;parentsRoom&#39;].push(new Quest(&quot;visiting1parentsRoomNothing&quot;,&quot;[[Fouiller la chambre des parents-&gt;VisitingHomeNothing]]&quot;, function(){return perception&lt;=5;}));
-s.quest[&#39;garden&#39;].push(new Quest(&quot;visiting1garden&quot;,&quot;[[Fouiller les jardins-&gt;VisitingHomeNothing]]&quot;, function(){return true;}));
-s.quest[&#39;fatherWorkRoomHome&#39;].push(new Quest(&quot;visiting1father&quot;,&quot;[[Fouiller le bureau-&gt;VisitingHomeFatherRoom]]&quot;, function(){return perception&gt;10;}));
-s.quest[&#39;fatherWorkRoomHome&#39;].push(new Quest(&quot;visiting1fatherNothing&quot;[[Fouiller le bureau-&gt;VisitingHomeNothing]]&quot;, function(){return perception&lt;=10;}));
-s.quest[&#39;motherWorkRoomHome&#39;].push(new Quest(&quot;visiting1Mother&quot;,&quot;[[Fouiller le bureau-&gt;VisitingHomeNothing]]&quot;, function(){return true;}));
+s.quest[&#39;room&#39;].push(new GE.Quest(&quot;visiting1Room&quot;,&quot;[[Fouiller la chambre-&gt;VisitingHomeRoom]]&quot;, function(){return true;}));
+s.quest[&#39;garage&#39;].push(new GE.Quest(&quot;visiting1garage&quot;,&quot;[[Fouiller le garage-&gt;VisitingHomeGarage]]&quot;, function(){return true;}));
+s.quest[&#39;kitchen&#39;].push(new GE.Quest(&quot;visiting1kitchen&quot;,&quot;[[Fouiller la cuisine-&gt;VisitingHomeNothing]]&quot;, function(){return true;}));
+s.quest[&#39;Naiade&#39;].push(new GE.Quest(&quot;visiting1Naiade&quot;,&quot;[[Fouiller la salle de simu&#39;-&gt;VisitingHomeNaiade]]&quot;, function(){return true;}));
+s.quest[&#39;salon&#39;].push(new GE.Quest(&quot;visiting1salon&quot;,&quot;[[Fouiller le salon-&gt;VisitingHomeNothing]]&quot;, function(){return true;}));
+s.quest[&#39;parentsRoom&#39;].push(new GE.Quest(&quot;visiting1parentsRoom&quot;,&quot;[[Fouiller la chambre des parents-&gt;VisitingHomeParents]]&quot;, function(){return s.stats[&#39;perception&#39;]&gt;5;}));
+s.quest[&#39;parentsRoom&#39;].push(new GE.Quest(&quot;visiting1parentsRoomNothing&quot;,&quot;[[Fouiller la chambre des parents-&gt;VisitingHomeNothing]]&quot;, function(){return s.stats[&#39;perception&#39;]&lt;=5;}));
+s.quest[&#39;garden&#39;].push(new GE.Quest(&quot;visiting1garden&quot;,&quot;[[Fouiller les jardins-&gt;VisitingHomeNothing]]&quot;, function(){return true;}));
+s.quest[&#39;fatherWorkRoomHome&#39;].push(new GE.Quest(&quot;visiting1father&quot;,&quot;[[Fouiller le bureau-&gt;VisitingHomeFatherRoom]]&quot;, function(){return s.stats[&#39;perception&#39;]&gt;10;}));
+s.quest[&#39;fatherWorkRoomHome&#39;].push(new GE.Quest(&quot;visiting1fatherNothing&quot;,&quot;[[Fouiller le bureau-&gt;VisitingHomeNothing]]&quot;, function(){return s.stats[&#39;perception&#39;]&lt;=10;}));
+s.quest[&#39;motherWorkRoomHome&#39;].push(new GE.Quest(&quot;visiting1Mother&quot;,&quot;[[Fouiller le bureau-&gt;VisitingHomeNothing]]&quot;, function(){return true;}));
 
 s.varQuest[&#39;visiting1&#39;]=0;
 
-s.quest[&#39;home&#39;].push(new Quest(&quot;visiting2General&quot;,&quot;[[Conclure sur mes recherches-&gt;VisitingHome2]]&quot;, function(){return s.varQuest[&#39;visiting1&#39;]&gt;=10;}));
-
+s.quest[&#39;home&#39;].push(new GE.Quest(&quot;visiting2General&quot;,&quot;[[Conclure sur mes recherches-&gt;VisitingHome2]]&quot;, function(){return s.varQuest[&#39;visiting1&#39;]&gt;=10;}));
 %&gt;</tw-passagedata><tw-passagedata pid="6" name="MyHome" tags="" position="509,539" size="100,100">&lt;h1&gt;Ma maison&lt;/h1&gt;
 
 &lt;p&gt;Dès que je passe le portail et entre dans notre propriété, malgré tout ce que je peux éprouver pour mes parents, toutes les contrariétés de ma courte vie, je ne peux m&#39;empecher d&#39;être profondément touchée par ce que je vois devant moi. La maison ne parait pas si impressionnante, surtout quand on sait que c&#39;est celle du Grand Thomas Gafalmo, mais c&#39;est certainement pour cela qu&#39;il n&#39;y passe pas tant de temps que ça.&lt;/p&gt; 
@@ -255,7 +277,7 @@ _.each(s.quest[&#39;garage&#39;],function(quest){
 });
 
 s.back=&quot;[[Retour au garage-&gt;MyGarage]] &quot;;
-%&gt;</tw-passagedata><tw-passagedata pid="16" name="Naiade" tags="" position="130,688" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="17" name="MyParentsRoom" tags="" position="382,717" size="100,100">&lt;h1&gt;La chambre de mes parents&lt;/h1&gt;
+%&gt;</tw-passagedata><tw-passagedata pid="16" name="Naiade" tags="" position="130,688" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="17" name="MyParentsRoom" tags="" position="381,717" size="100,100">&lt;h1&gt;La chambre de mes parents&lt;/h1&gt;
 &lt;p&gt;Je n&#39;ai pas souvent le droit d&#39;y entrer, mais à chaque fois que j&#39;y vais, je suis surprise par l&#39;austérité qui se dégage de l&#39;endroit. J&#39;ai toujours du mal à croire que ce soit le même endroit que le reste de la maison. &lt;/p&gt;
 &lt;p&gt;Pourquoi suis-je venu ici ?&lt;/p&gt;
 &lt;p&gt;Si je sors, j&#39;ai les bureaux en face([[celui de maman-&gt;MyMotherHomeWorkRoom]] et [[celui de papa-&gt;MyFatherHomeWorkRoom]] ), la salle de bain sur le coté, et [[ma chambre-&gt;MyRoom]] en diagonale.&lt;/p&gt;
@@ -305,7 +327,7 @@ s.stats[&#39;cleaning&#39;]++;
 
 &lt;%
 s.back=&quot;[[Retour-&gt;SarresonHotspots]] &quot;;
-%&gt;</tw-passagedata><tw-passagedata pid="22" name="VisitingHomeRoom" tags="" position="608,0" size="100,100">&lt;h1&gt;Fouiller ma chambre&lt;/h1&gt;
+%&gt;</tw-passagedata><tw-passagedata pid="22" name="VisitingHomeRoom" tags="" position="603,0" size="100,100">&lt;h1&gt;Fouiller ma chambre&lt;/h1&gt;
 &lt;p&gt;C&#39;est étonnant ce qu&#39;on peut trouver dans une pièce qu&#39;on s&#39;attend à connaitre particulièrement bien. Je ne reviens toujours pas de découvrir, derrière mon bureau des feuilles de dessins sur lesquelles je découvre le visage d&#39;un homme à la peau noire, qui m&#39;observe avec un sourire qui lui mange les joues.&lt;/p&gt;
 &lt;p&gt;Je suis choquée par l&#39;image, comme elle est la même que l&#39;Ange Noir qui hante mes spectacle de danse. Peut-être en découvrirais-je davantage au studio ?&lt;/p&gt;
 &lt;p&gt;Je pousse plus loin les fouilles et je découvre que sous mon lit, j&#39;ai une espèce de machine que je n&#39;ai jamais vu, qui ne fait aucun bruit, mais, qui, maintenant que j&#39;ai bougé le montant du lit, a éclairé un écran avec tout un tas de paramètres que je ne comprend pas, et que je ne connais pas plus.&lt;/p&gt;
@@ -317,15 +339,23 @@ s.back=&quot;[[Retour-&gt;SarresonHotspots]] &quot;;
 &lt;p&gt;Par contre, je ne trouve rien d&#39;autre d&#39;intéressant, mis à part ces deux éléments qui sont, je dois l&#39;admettre assez spectaculaire !&lt;/p&gt;
 &lt;p&gt;&lt;%=s.back%&gt;&lt;/p&gt;
 &lt;%
-s.quest[&#39;danse&#39;].push(new Quest(&quot;fouille2DanseAngeNoir&quot;,&quot;[[Chercher des informations sur l&#39;Ange Noir-&gt;VisitingDanseAngeNoir]]&quot;,
+s.quest[&#39;danse&#39;].push(new GE.Quest(&quot;fouille2DanseAngeNoir&quot;,&quot;[[Chercher des informations sur l&#39;Ange Noir-&gt;VisitingDanseAngeNoir]]&quot;,
 function(){return true;}));
-%&gt;</tw-passagedata><tw-passagedata pid="23" name="VisitingHomeGarage" tags="" position="811,0" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="24" name="VisitingHomeNothing" tags="" position="1076,21" size="100,100">&lt;h1&gt;Rien d&#39;intéressant en vue&lt;/h1&gt;
+%&gt;
+
+</tw-passagedata><tw-passagedata pid="23" name="VisitingHomeGarage" tags="" position="811,0" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="24" name="VisitingHomeNothing" tags="" position="1076,21" size="100,100">&lt;h1&gt;Rien d&#39;intéressant en vue&lt;/h1&gt;
 &lt;p&gt;Rien par ici, ou alors je ne le vois pas&lt;/p&gt;
 &lt;p&gt;&lt;%=s.back%&gt;&lt;/p&gt;</tw-passagedata><tw-passagedata pid="25" name="VisitingHomeNaiade" tags="" position="955,317" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="26" name="VisitingHomeParents" tags="" position="1085,317" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="27" name="VisitingHomeFatherRoom" tags="" position="1215,317" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="28" name="SalonModuleHifi" tags="" position="0,838" size="100,100">&lt;h1&gt;Module Hifi pour le salon&lt;/h1&gt;
 &lt;p&gt;Je peux choisir ma musique favorite parmi les suivantes : La Chimère, Radioactive, Piste inconnue (il y en a cinq), épique videogame soundtrack, Remise au ciel et Lilliana.&lt;/p&gt;
 &lt;p&gt;En danse, je n&#39;ai étudié que La Chimère. Je ne suis pas sure de connaitre les autres.&lt;/p&gt;
-&lt;p&gt;[[Retour au salon-&gt;MySalon]] &lt;/p&gt;</tw-passagedata><tw-passagedata pid="29" name="VisitingDanseAngeNoir" tags="" position="412,5" size="100,100">&lt;h1&gt;A la recherche des indices sur l&#39;Ange Noir&lt;/h1&gt;
+&lt;p&gt;[[Retour au salon-&gt;MySalon]] &lt;/p&gt;</tw-passagedata><tw-passagedata pid="29" name="VisitingDanseAngeNoir" tags="" position="404,3" size="100,100">&lt;h1&gt;A la recherche des indices sur l&#39;Ange Noir&lt;/h1&gt;
 &lt;p&gt;Ai-je bien fait de vouloir chercher l&#39;Ange Noir de tous les cotés de cette manière ? Je me souviens de comment notre amitié s&#39;est terminé entre Raf et moi. Je sais que ce serait très dangereux pour moi de lui demander s&#39;il l&#39;a vu. Et je crains trop Seb pour lui poser des questions sur un fantome de cette manière.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;si jamais j&#39;évolue dans ma relation avec Rafaelo, je pourrais certainement oser le lui demander... La même chose pour Sebastien.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;En attendant, j&#39;ai beau fouiller partout dans le studio, je ne trouve rien de spécial. Simplement une odeur de propre qui me met mal à l&#39;aise.&lt;/p&gt;
 
-FIXME !
-Double-cliquez</tw-passagedata><tw-passagedata pid="30" name="VisitingHomeRoomSwitchOffDevice" tags="" position="279,6" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="31" name="VisitingHomeRoomTouchingDevice" tags="" position="141,11" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="32" name="VisitingHomeRoomIgnoreDevice" tags="" position="12,11" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="33" name="VisitingHome2" tags="" position="557,122" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata></tw-storydata>
+&lt;p&gt;&lt;%=s.back%&gt;&lt;/p&gt;
+&lt;%
+s.quest[&#39;danse&#39;].push(new GE.Quest(&quot;visiting2Rafaelo&quot;,&quot;[[Oser demander à Raf s&#39;il connait cet &#39;Ange Noir&#39;-&gt;VisitingAngeNoirRafaelo]]&quot;,function(){return s.relationship[&#39;Rafaelo&#39;].level&gt;2;}));
+s.quest[&#39;danse&#39;].push(new GE.Quest(&quot;visiting2Sebastien&quot;,&quot;[[Oser demander à Sebastien s&#39;il connait cet &#39;Ange Noir&#39;-&gt;VisitingAngeNoirSebastien]]&quot;,function(){return s.relationship[&#39;Sebastien&#39;].level&gt;5;}));
+
+%&gt;</tw-passagedata><tw-passagedata pid="30" name="VisitingHomeRoomSwitchOffDevice" tags="" position="279,6" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="31" name="VisitingHomeRoomTouchingDevice" tags="" position="141,11" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="32" name="VisitingHomeRoomIgnoreDevice" tags="" position="12,11" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="33" name="VisitingHome2" tags="" position="557,122" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="34" name="VisitingAngeNoirRafaelo" tags="" position="334,154" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="35" name="VisitingAngeNoirSebastien" tags="" position="447,133" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="36" name="Rafaelo" tags="" position="0,200" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="37" name="Sebastien" tags="" position="73,123" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="38" name="Vanoslias" tags="" position="1052,476" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata><tw-passagedata pid="39" name="Matthieu" tags="" position="1171,476" size="100,100">Double-cliquez sur ce passage pour le modifier.</tw-passagedata></tw-storydata>
